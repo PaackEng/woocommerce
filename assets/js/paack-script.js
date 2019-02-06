@@ -128,6 +128,7 @@ function updateSend(){
 
 function updateSelectDateLink(deliverySlotVal) {
 	const infoBox = document.getElementById('delivery_slot_info');
+	infoBox.classList.remove('isa_hidden');
 	if (deliverySlotVal === 'now') {
 			infoBox.innerHTML = 'Selected: In 2 hours';
 	} else {

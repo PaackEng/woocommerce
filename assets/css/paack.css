@@ -11,8 +11,7 @@
 }
 .isa_info, .isa_success, .isa_warning, .isa_error {
 	margin: 5px 0px;
-	/*padding:12px;*/
-
+	padding:12px;
 }
 .isa_hidden{
 	display: none;
@@ -41,11 +40,16 @@
 .zip_code_menu{
 	margin-left: 23px;
 }
-.rigth{
+.right{
 	float: right;
 }
 dl dt.variation-Envioa2horas	{
 	float: left;
+}
+
+#table_options {
+	margin-top: 20px;
+	width: 100%;
 }
 
 #table_options label{
@@ -55,6 +59,10 @@ dl dt.variation-Envioa2horas	{
 	background-color: #e2efce;
 }
 
+#table_options label {
+	display: inline-block;
+}
+
 .delivery-slot-header {
 	text-align: center;
 	font-weight: bold;
@@ -62,4 +70,8 @@ dl dt.variation-Envioa2horas	{
 
 .text-center {
 	text-align: center;
+}
+
+.no-padding {
+	padding: 0px !important;
 }

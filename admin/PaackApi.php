@@ -3,7 +3,6 @@ class PaackApi{
 	const API_HOST_TEST = 'http://test.api.paack.co';
 	const API_HOST_PROD = 'http://api.paack.co';
 	const API_PATH = '/api/public/v1';
-	const API_KEY = 'cf25912e9c9f167e91f18106e4ef63d63d3159c0';
 
 	public static function get($url){
 		$path = self::API_HOST_TEST;

@@ -15,7 +15,6 @@ require_once 'admin/Util.php';
 require_once 'admin/menu.php';
 
 require_once 'checkout/checkout.php';
-add_action('woocommerce_after_checkout_billing_form','paack_bottom_filter'); // LUL
 add_action( 'wp_ajax_is_zip_code', 'isZipCodeAjax' );
 add_action( 'wp_ajax_nopriv_is_zip_code', 'isZipCodeAjax' );
 
@@ -35,38 +34,37 @@ function paack_bottom_filter(){
 		echo paack_html();
 	}
 }
+add_action('woocommerce_checkout_before_order_review','paack_bottom_filter'); // LUL
 
 function paack_html(){
-   ?>
-	 <div class="isa_success">
-		 <a id="paack_delivery_slot_link" href="#test-form" class="wp-paack-pop">
-			 Envio en 2 horas
-		 </a>
-	 </div>
-	 <div id="delivery_slot_info" class="isa_success text-center"></div>
+	?>
+		<div class="isa_success">
+			<a id="paack_delivery_slot_link" href="#test-form" class="wp-paack-pop">
+				Envio en 2 horas
+			</a>
+		</div>
+		<div id="delivery_slot_info" class="isa_success isa_hidden text-center"></div>
     <div id="test-form" class="mfp-hide white-popup-block">
-    	<h2>Ingresa tu código postal.</h2>
-    	<hr/>
-    	<p>
-			<?php esc_html(get_option("text_popup"));?>
-    	</p>
-	    <div id="consult-zip-code">
+			<h2>Ingresa tu código postal.</h2>
+			<hr/>
+			<p><?php esc_html(get_option("text_popup"));?></p>
+			<div id="consult-zip-code">
 				<fieldset style="border:0;">
 					<label for="name">Name</label>
 					<input id="zip_code" name="zip_code" type="text" style="width:250px;" placeholder="Codigo Postal" required="">
 					<button type="button" id="button-zip-code">Consultar</button>
 				</fieldset>
 			</div>
-		<div class="isa_hidden" id="message_zip_code">
-			<i class="fa fa-info-circle"></i>
-			<span></span>
+			<div class="isa_hidden no-padding" id="message_zip_code">
+				<i class="fa fa-info-circle"></i>
+				<span></span>
+			</div>
+			<table class="isa_hidden" id="table_options"></table>
+			<button type="button" class="isa_hidden right" id="button_zip_code">
+				 Agregar
+			</button>
 		</div>
-		<table class="isa_hidden" id="table_options"></table>
-		<button type="button" class="isa_hidden rigth" id="button_zip_code">
-			 Agregar
-		</button>
-	</div>
-    <?php
+	<?php
 }
 
 function add_assets(){
