@@ -1,11 +1,11 @@
 <?php
 /**
 * Plugin Name: Paack Plugin
-* Plugin URI: 
+* Plugin URI:
 * Description: Plugin para consultar y generar envios.
 * Version: 1.0.0
 * Author: Wiljac Aular
-* Author URI: 
+* Author URI:
 * License: GPL2
 */
 
@@ -15,26 +15,15 @@ require_once 'admin/Util.php';
 require_once 'admin/menu.php';
 
 require_once 'checkout/checkout.php';
-//Esta función toma solo un parámetro, y asi saber  si la recuperación fue exitosa
-
-//add_filter("paack_bottom_filter","paack_bottom_filter");
-add_action('woocommerce_product_meta_end','paack_bottom_filter');
+add_action('woocommerce_after_checkout_billing_form','paack_bottom_filter'); // LUL
 add_action( 'wp_ajax_is_zip_code', 'isZipCodeAjax' );
 add_action( 'wp_ajax_nopriv_is_zip_code', 'isZipCodeAjax' );
 
-//$fragments = apply_filters( 'woocommerce_add_to_cart_fragments', $fragments ); 
-
-function woocommerce_header_add_to_cart_fragment( $fragments ) {
-	global $woocommerce;
-
-	return $fragments . '<input type="checkbox" name="">';
-}
-//add_filter( 'woocommerce_add_to_cart_fragments', 'woocommerce_header_add_to_cart_fragment',10,1 );
-
 function paack_field_custom_send(){
-	echo "<input type='hidden' name='paack-two-hour' value ='0' id='paack-two-hour'>";
+	echo "<input type='hidden' name='paack_two_hour' value ='0' id='paack-two-hour'>";
 }
-add_action( 'woocommerce_before_add_to_cart_button', 'paack_field_custom_send' );
+
+add_action( 'woocommerce_after_order_notes', 'paack_field_custom_send' );
 
 function paack_bottom_filter(){
 	$store_id = get_option('store_id');
@@ -43,42 +32,36 @@ function paack_bottom_filter(){
 
 	if($is_store_valid == 1 && $zip_codes != ''){
 		add_assets();
-    	echo "<a href='#test-form' class='wp-paak-pop'>Envio en 2 horas</a>".form();
+		echo paack_html();
 	}
 }
 
-function form(){
+function paack_html(){
    ?>
+	 <div class="isa_success">
+		 <a id="paack_delivery_slot_link" href="#test-form" class="wp-paack-pop">
+			 Envio en 2 horas
+		 </a>
+	 </div>
+	 <div id="delivery_slot_info" class="isa_success text-center"></div>
     <div id="test-form" class="mfp-hide white-popup-block">
     	<h2>Ingresa tu código postal.</h2>
     	<hr/>
     	<p>
 			<?php esc_html(get_option("text_popup"));?>
     	</p>
-	    <form id="consult-zip-code">
-			<fieldset style="border:0;">
-				<label for="name">Name</label>
-				<input id="zip_code" name="zip_code" type="text" style="width:250px;" placeholder="Codigo Postal" required="">
-				<button type="button" id="button-zip-code">Consultar</button>
-			</fieldset>
-		</form>
+	    <div id="consult-zip-code">
+				<fieldset style="border:0;">
+					<label for="name">Name</label>
+					<input id="zip_code" name="zip_code" type="text" style="width:250px;" placeholder="Codigo Postal" required="">
+					<button type="button" id="button-zip-code">Consultar</button>
+				</fieldset>
+			</div>
 		<div class="isa_hidden" id="message_zip_code">
 			<i class="fa fa-info-circle"></i>
 			<span></span>
 		</div>
-		<table class="isa_hidden" id="table_options">
-		<?php
-			foreach(getHoursOptions() as $key=>$value){
-			?>
-			<tr>
-				<td>
-					<input type="radio" id="option_<?=$key?>" name="option_two_hour" value="<?=$key?>">
-					<label for="option_<?=$key?>"><?=$value?></label>
-				</td>
-			</tr>
-
-		<?php } ?>
-		</table>
+		<table class="isa_hidden" id="table_options"></table>
 		<button type="button" class="isa_hidden rigth" id="button_zip_code">
 			 Agregar
 		</button>
@@ -93,7 +76,7 @@ function add_assets(){
 	    wp_enqueue_script('script-magnific');
 	    wp_enqueue_script('script-paack');
 	    wp_localize_script ('script-paack', 'paack', array ('ajax_url' => admin_url ('admin-ajax.php')));
-	
+
 }
 
 function register_assets(){
@@ -118,7 +101,7 @@ function isZipCodeAjax(){
 	}
 	$res = array("availability"=> $is,"message" => $message);
 	wp_send_json($res);
-	wp_die(); 
+	wp_die();
 }
 
 function save_paack_two_hour_field( $cart_item_data, $product_id ) {
@@ -130,12 +113,12 @@ function save_paack_two_hour_field( $cart_item_data, $product_id ) {
     return $cart_item_data;
 }
 
-add_action( 'woocommerce_add_cart_item_data', 'save_paack_two_hour_field', 10, 2 );
+// add_action( 'woocommerce_add_cart_item_data', 'save_paack_two_hour_field', 10, 2 );
 
 
 function render_meta_on_cart_and_checkout( $cart_data, $cart_item = null ) {
 	add_assets();
-	
+
     $custom_items = array();
     if( !empty( $cart_data ) ) {
         $custom_items = $cart_data;
@@ -147,6 +130,4 @@ function render_meta_on_cart_and_checkout( $cart_data, $cart_item = null ) {
 	}
     return $custom_items;
 }
-add_filter( 'woocommerce_get_item_data', 'render_meta_on_cart_and_checkout', 10, 2 );
-
-
+// add_filter( 'woocommerce_get_item_data', 'render_meta_on_cart_and_checkout', 10, 2 );

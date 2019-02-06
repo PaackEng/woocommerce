@@ -18,14 +18,15 @@
         return $options[$selected];
     }
     function getUTCDate(){
-		$date = new Datetime();
-		$date_format= $date->format("Y-m-d H:i");
-        $utc_date = DateTime::createFromFormat(
-			'Y-m-d G:i',
-			$date_format,
-			new DateTimeZone('UTC')
-        );
-        return $utc_date;
+
+  		$date = new DateTime();
+      $date->setTimezone(new DateTimeZone("UTC"));
+
+  		// $date = new Datetime();
+  		// $date_format= $date->format("Y-m-d H:i");
+      // $utc_date = DateTime::createFromFormat( 'Y-m-d G:i', $date_format, new DateTimeZone('UTC') );
+      // return $utc_date;
+      return $date;
     }
     function formatDate($date){
 		$date_format = $date->format("Y-m-d H:i:s");
