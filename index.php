@@ -40,19 +40,19 @@ function paack_html(){
 	?>
 		<div class="isa_success">
 			<a id="paack_delivery_slot_link" href="#test-form" class="wp-paack-pop">
-				Envio en 2 horas
+				Get your order in the next 2h or schedule your delivery
 			</a>
 		</div>
 		<div id="delivery_slot_info" class="isa_success isa_hidden text-center"></div>
     <div id="test-form" class="mfp-hide white-popup-block">
-			<h2>Ingresa tu código postal.</h2>
+			<h2>Please enter your postcode</h2>
 			<hr/>
 			<p><?php esc_html(get_option("text_popup"));?></p>
 			<div id="consult-zip-code">
 				<fieldset style="border:0;">
 					<label for="name">Name</label>
-					<input id="zip_code" name="zip_code" type="text" style="width:250px;" placeholder="Codigo Postal" required="">
-					<button type="button" id="button-zip-code">Consultar</button>
+					<input id="zip_code" name="zip_code" type="text" style="width:250px;" placeholder="Postcode" required="">
+					<button type="button" id="button-zip-code">Check</button>
 				</fieldset>
 			</div>
 			<div class="isa_hidden no-padding" id="message_zip_code">
@@ -61,7 +61,7 @@ function paack_html(){
 			</div>
 			<table class="isa_hidden" id="table_options"></table>
 			<button type="button" class="isa_hidden right" id="button_zip_code">
-				 Agregar
+				 Continue
 			</button>
 		</div>
 	<?php
@@ -123,7 +123,7 @@ function render_meta_on_cart_and_checkout( $cart_data, $cart_item = null ) {
     }
     if( isset( $cart_item['paack_two_hour'] ) ) {
 		if($cart_item['paack_two_hour']!='0'){
-			$custom_items[] = array( "name" => 'Envio a 2 horas', "value" => '&nbsp;'.getHourSelected($cart_item['paack_two_hour']) );
+			$custom_items[] = array( "name" => 'Get your order in 2h or schedule your delivery', "value" => '&nbsp;'.getHourSelected($cart_item['paack_two_hour']) );
 		}
 	}
     return $custom_items;

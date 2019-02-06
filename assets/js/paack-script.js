@@ -84,7 +84,7 @@ function check_zip_code(){
 
 					jQuery('#zip_code_field i').removeClass('fa-info');
 					jQuery('#zip_code_field i').addClass('fa-check');
-					jQuery('#send_two_hour_text').text('¿Desea envío en 2 horas?');
+					jQuery('#send_two_hour_text').text('Select a timeslot for your delivery here');
 					jQuery('#send_two_hour').removeClass('isa_hidden')
 				}else{
 					jQuery('#zip_code_field').removeClass('isa_success');
@@ -93,7 +93,7 @@ function check_zip_code(){
 					jQuery('#zip_code_field i').removeClass('fa-check');
 					jQuery('#zip_code_field i').addClass('fa-info');
 
-					jQuery('#send_two_hour_text').text('Lo sentimos, tu codigo postal no permite envios de 2 horas.');
+					jQuery('#send_two_hour_text').text('Unfortunately this service is not available in your postcode');
 					jQuery('#send_two_hour').addClass('isa_hidden')
 				}
 				jQuery('#zip_code_field').removeClass('isa_hidden');
@@ -149,12 +149,12 @@ function buildAvailableTimeSlots() {
 		const now = new Date();
 
 		if (now.getHours() >= 22) {
-			thead.appendChild(tableHeader('Mañana'));
+			thead.appendChild(tableHeader('Tomorrow'));
 			table.appendChild(thead);
 			table.appendChild(buildNextDaySlots(now.getHours()));
 
 		} else {
-			thead.appendChild(tableHeader('Hoy'));
+			thead.appendChild(tableHeader('Today'));
 			table.appendChild(thead);
 			table.appendChild(buildSameDaySlots(now.getHours()));
 		}
@@ -206,7 +206,7 @@ function nowRow() {
 
 	const label = document.createElement('label');
 	label.setAttribute('for', 'delivery_slot_option_now');
-	label.innerHTML = 'Próximas 2 horas.';
+	label.innerHTML = 'Next 2 hours';
 
 	td.appendChild(input);
 	td.appendChild(label);

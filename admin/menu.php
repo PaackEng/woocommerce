@@ -11,17 +11,17 @@ function output_menu() {
     $idStore = get_option('store_id');
     $is_store_valid = get_option('is_store_valid');
     ?>
-    <h1>Configuración Paack Plugin</h1>
-    <p>Plugin para consultar y generar envios.</p>
+    <h1>Paack Plugin configuration</h1>
+    <p>Plugin to send orders to Paack</p>
     <?php
         if($idStore!=null && $idStore!= ''){
             if($is_store_valid==1){
-                echo messages('updated notice','Plugin configurado exitosamente.');
+                echo messages('updated notice','Paack plugin successfully configured');
             }else{
-                echo messages('error notice','Tu id de tienda Paack no es válido.');
+                echo messages('error notice','The store ID is not valid. Please contact Paack');
             }
         }else{
-            echo messages('error notice','Debe ingresar un id de Tienda registrado en Paack.');
+            echo messages('error notice','Please enter a valid store ID.');
         }
 
     ?>
@@ -35,44 +35,44 @@ function output_menu() {
             <table class="form-table">
                 <tbody>
                     <tr valing="top">
-                        <th><label for="api_token">Api Token</label></th>
+                        <th><label for="api_token">API Token</label></th>
                         <td>
                             <input type="text" name="api_token" id="api_token" value="<?=get_option('api_token')?>" maxlength="100" style="width:600px" required> *
                         </td>
                     </tr>
                     <tr valing="top">
-                        <th><label for="store_id">Id de store</label></th>
+                        <th><label for="store_id">Store ID</label></th>
                         <td>
                             <input type="number" name="store_id" id="store_id" value="<?=$idStore?>" required=""> *
                         </td>
                     </tr>
                     <tr valing="top">
-                        <th><label for="text_popup">Texto para popup</label></th>
+                        <th><label for="text_popup">Popup text</label></th>
                         <td>
                             <textarea name="text_popup" id="text_popup" style="width:600px; height: 100px;"><?=get_option('text_popup')?></textarea>
                         </td>
                     </tr>
                     <tr valing="top">
-                        <th><label for="zip_codes">Códigos postales</label></th>
+                        <th><label for="zip_codes">Postcodes</label></th>
                         <td>
                             <textarea name="zip_codes" id="zip_codes" style="width:600px; height: 100px;"><?=get_option('zip_codes')?></textarea><br>
-                            <span class="description">Agregar los códigos postales permitidos para envíos de 2 horas separados por coma (,)</span>
+                            <span class="description">Add all the available postcodes for Paack separated by a comma (,)</span>
                         </td>
                     </tr>
                     <tr valing="top">
-                        <th><label for="paack_message_zip_code_success">Mensaje Exito código postal</label></th>
+                        <th><label for="paack_message_zip_code_success">Postcode OK message</label></th>
                         <td>
                             <input type="text" name="paack_message_zip_code_success" id="paack_message_zip_code_success" value="<?=get_option('paack_message_zip_code_success')?>" maxlength="100" style="width:600px">
                         </td>
                     </tr>
                     <tr valing="top">
-                        <th><label for="paack_message_zip_code_error">Mensaje Error código postal</label></th>
+                        <th><label for="paack_message_zip_code_error">Postcode error message</label></th>
                         <td>
                             <input type="text" name="paack_message_zip_code_error" id="paack_message_zip_code_error" value="<?=get_option('paack_message_zip_code_error')?>" maxlength="100" style="width:600px" >
                         </td>
                     </tr>
                     <tr valing="top">
-                        <th><label for="paack_testing">Modo prueba</label></th>
+                        <th><label for="paack_testing">Test mode</label></th>
                         <td>
                             <input type="checkbox" name="paack_testing" value="1" <?php checked( 1 == get_option( 'paack_testing' )); ?> />
                         </td>
@@ -89,9 +89,9 @@ function output_menu() {
 
       $idStore = get_option('store_id');
       update_option( 'is_store_valid', validate_stores_id($idStore));
-      if(get_option('text_popup')==''){update_option('text_popup','¿Desea envíos a su destino en 2 horas? Ingrese aquí su código postal y verifique si tenemos disponible envíos a su ubicación.');}
-      if(get_option('paack_message_zip_code_success')==''){update_option( 'paack_message_zip_code_success', 'Su código postal es válido.');}
-      if(get_option('paack_message_zip_code_error')==''){update_option( 'paack_message_zip_code_error', 'Lo sentimos, su código postal no es válido.');}
+      if(get_option('text_popup')==''){update_option('text_popup','Would you like to schedule your delivery, or get it in two hours? Check your postcode here');}
+      if(get_option('paack_message_zip_code_success')==''){update_option( 'paack_message_zip_code_success', 'Valid postcode');}
+      if(get_option('paack_message_zip_code_error')==''){update_option( 'paack_message_zip_code_error', 'Unfortunately we do not offer this service in your location');}
 
 
       register_setting('paack_setting_group','text_popup');
