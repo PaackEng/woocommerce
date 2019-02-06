@@ -13,7 +13,7 @@ function output_menu() {
     ?>
     <h1>Configuración Paack Plugin</h1>
     <p>Plugin para consultar y generar envios.</p>
-    <?php 
+    <?php
         if($idStore!=null && $idStore!= ''){
             if($is_store_valid==1){
                 echo messages('updated notice','Plugin configurado exitosamente.');
@@ -23,11 +23,11 @@ function output_menu() {
         }else{
             echo messages('error notice','Debe ingresar un id de Tienda registrado en Paack.');
         }
-        
+
     ?>
     <div class="wrap">
         <form action="options.php" method="POST">
-            <?php 
+            <?php
                 settings_fields('paack_setting_group');
                 do_settings_sections('paack_setting_group');
             ?>
@@ -35,11 +35,17 @@ function output_menu() {
             <table class="form-table">
                 <tbody>
                     <tr valing="top">
+                        <th><label for="api_token">Api Token</label></th>
+                        <td>
+                            <input type="text" name="api_token" id="api_token" value="<?=get_option('api_token')?>" maxlength="100" style="width:600px" required> *
+                        </td>
+                    </tr>
+                    <tr valing="top">
                         <th><label for="store_id">Id de store</label></th>
                         <td>
                             <input type="number" name="store_id" id="store_id" value="<?=$idStore?>" required=""> *
                         </td>
-                    </tr>  
+                    </tr>
                     <tr valing="top">
                         <th><label for="text_popup">Texto para popup</label></th>
                         <td>
@@ -56,20 +62,19 @@ function output_menu() {
                     <tr valing="top">
                         <th><label for="paack_message_zip_code_success">Mensaje Exito código postal</label></th>
                         <td>
-                            <input type="text" name="paack_message_zip_code_success" id="paack_message_zip_code_success" value="<?=get_option('paack_message_zip_code_success')?>" maxlength="100" style="width:600px"> 
+                            <input type="text" name="paack_message_zip_code_success" id="paack_message_zip_code_success" value="<?=get_option('paack_message_zip_code_success')?>" maxlength="100" style="width:600px">
                         </td>
                     </tr>
                     <tr valing="top">
                         <th><label for="paack_message_zip_code_error">Mensaje Error código postal</label></th>
                         <td>
-                            <input type="text" name="paack_message_zip_code_error" id="paack_message_zip_code_error" value="<?=get_option('paack_message_zip_code_error')?>" maxlength="100" style="width:600px" > 
+                            <input type="text" name="paack_message_zip_code_error" id="paack_message_zip_code_error" value="<?=get_option('paack_message_zip_code_error')?>" maxlength="100" style="width:600px" >
                         </td>
                     </tr>
                     <tr valing="top">
                         <th><label for="paack_testing">Modo prueba</label></th>
                         <td>
-                            <?php $testactivated = get_option( 'paack_testing' ); ?>
-                            <input type="checkbox" name="paack_testing[option_one]" value="1" <?php checked( 1 == $testactivated); ?> />
+                            <input type="checkbox" name="paack_testing" value="1" <?php checked( 1 == get_option( 'paack_testing' )); ?> />
                         </td>
                     </tr>
                 </tbody>
@@ -81,15 +86,17 @@ function output_menu() {
   }
 
   function register_data(){
-      
+
       $idStore = get_option('store_id');
       update_option( 'is_store_valid', validate_stores_id($idStore));
       if(get_option('text_popup')==''){update_option('text_popup','¿Desea envíos a su destino en 2 horas? Ingrese aquí su código postal y verifique si tenemos disponible envíos a su ubicación.');}
       if(get_option('paack_message_zip_code_success')==''){update_option( 'paack_message_zip_code_success', 'Su código postal es válido.');}
       if(get_option('paack_message_zip_code_error')==''){update_option( 'paack_message_zip_code_error', 'Lo sentimos, su código postal no es válido.');}
 
+
       register_setting('paack_setting_group','text_popup');
       register_setting('paack_setting_group','store_id');
+      register_setting('paack_setting_group','api_token');
       register_setting('paack_setting_group','is_store_valid');
       register_setting('paack_setting_group','zip_codes');
 
@@ -101,9 +108,9 @@ function output_menu() {
   function validate_stores_id($idStore){
     $isValid=0;
        if($idStore!=null && $idStore!=''){
-            $res = PaackApi::check_store($idStore,get_option( 'paack_testing' ));
+            $res = PaackApi::check_store($idStore);
             if($res["error"]==0){
-                $isValid = 1;  
+                $isValid = 1;
             }
        }
     return $isValid;
