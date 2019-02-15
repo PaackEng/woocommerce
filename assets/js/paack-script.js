@@ -161,7 +161,7 @@ function buildAvailableTimeSlots() {
 }
 
 function buildSameDaySlots(currentHour) {
-		let firstHour = currentHour <= 11 ? 11 : currentHour + 2;
+		let firstHour = currentHour <= 11 ? 11 : currentHour + 3;
 		const tbody = document.createElement('tbody');
 
 		if (currentHour >= 11) {
