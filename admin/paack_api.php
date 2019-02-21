@@ -1,7 +1,7 @@
 <?php
 class PaackApi{
-    const API_HOST_TEST = 'http://localhost:3000';
-    const API_HOST_PROD = 'http://api.paack.co';
+    const API_HOST_TEST = 'https://test.api.paack.co';
+    const API_HOST_PROD = 'https://api.paack.co';
     const API_PATH = '/api/public/v1';
 
     public static function get($url){

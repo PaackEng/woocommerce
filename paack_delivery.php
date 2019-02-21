@@ -1,9 +1,9 @@
 <?php
 /**
-* Plugin Name: Pack Delivery
+* Plugin Name: Paack Delivery
 * Plugin URI: https://github.com/PaackEng/woocommerce
 * Description: Plugin para consultar y generar envios.
-* Version: 1.0.0
+* Version: 1.0.2
 * Author: Paack Logistics Iberia S.L.
 * License: GPL2
 */
