@@ -1,7 +1,8 @@
 === Paack Delivery ===
-Contributors: jouderianjr
+Contributors: h0lyalg0rithm
 Tags: delivery, paack, ecommerce
 Requires at least: 4.7
+Requires PHP: 7.1.23
 Tested up to: 5.1
 Stable tag: 1.0.3
 License: GPLv3
@@ -50,4 +51,3 @@ If you get stuck, you can send an email to [Paack](mail:info@paack.co).
 
 = 1.0.0 =
 * Initial Release
- 
