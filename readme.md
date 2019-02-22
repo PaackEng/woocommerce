@@ -1,8 +1,8 @@
 === Paack Delivery ===
-Contributors: 
-Tags: 
+Contributors: jouderianjr
+Tags: delivery, paack, ecommerce
 Requires at least: 4.7
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: 1.0.3
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
@@ -10,6 +10,8 @@ License URI: https://www.gnu.org/licenses/gpl-3.0.html
 Paack Delivery is a quick and simple plugin which allows users to have their orders delivered at the timeslot they requested through Paack.
 
 == Description ==
+Paack is a B2B2C ecommerce delivery solution which is fundamentally changing the online
+shopping experience.
 
 = Precise services =
 Time slot and specific day selection providing the best customer choice available in the market
@@ -32,6 +34,12 @@ Installing the plugin is pretty simple
 1. Upload `paack-delivery` folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
  
+== Frequently Asked Questions ==
+
+= Where can I get support or talk to other users? =
+
+If you get stuck, you can send an email to [Paack](mail:info@paack.co).
+
 == Changelog ==
  
 = 1.0.3 =
